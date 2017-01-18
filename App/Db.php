@@ -15,9 +15,12 @@ class Db
 
     public function __construct()
     {
-        $dsn = 'mysql:host=localhost;dbname=php2;charset=utf8';
-        $dbLogin = 'db_admin';
-        $dbPass = 'yn34vHXPtWShemuu';
+        $config = new Config();
+        $dsn = 'mysql:host=' . $config->data['db']['host'] . ';' .
+            'dbname=' . $config->data['db']['dbname'] . ';' .
+            'charset=' . $config->data['db']['charset'];
+        $dbLogin = $config->data['db']['user'];
+        $dbPass = $config->data['db']['password'];
         $this->handler = new \PDO($dsn, $dbLogin, $dbPass);
     }
 
@@ -35,10 +38,15 @@ class Db
         }
     }
 
-    public function execute($query, $params = [])
+    public function execute($query, $params = []): bool
     {
         $sth = $this->handler->prepare($query);
         $bool = $sth->execute($params);
         return $bool;
+    }
+
+    public function lastInsertId()
+    {
+        return $this->handler->lastInsertId();
     }
 }

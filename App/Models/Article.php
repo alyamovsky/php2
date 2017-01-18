@@ -19,10 +19,13 @@ class Article
     public $text;
     const TABLE = 'news';
 
-    public static function findLast($value)
+    public static function findLast(int $value = null): array
     {
         $db = new Db();
-        $sql = 'SELECT * FROM ' . self::TABLE . ' ORDER BY id DESC LIMIT ' . (int)$value;
+        $sql = 'SELECT * FROM ' . self::TABLE . ' ORDER BY id DESC';
+        if ((isset($value))) {
+            $sql .= ' LIMIT ' . (int)$value;
+        }
         return $db->query($sql, [], self::class);
     }
 
