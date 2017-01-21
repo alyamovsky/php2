@@ -9,4 +9,4 @@ require __DIR__ . '/autoload.php';
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $data = \App\Models\Article::findById($id);
 
-include __DIR__ . '/templates/article.php';
+include __DIR__ . '/Templates/article.php';
