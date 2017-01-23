@@ -20,4 +20,9 @@ class Author
 
     const TABLE = 'authors';
 
+    public function getName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
 }

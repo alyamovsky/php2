@@ -17,7 +17,19 @@ class Article
     public $id;
     public $title;
     public $text;
+    public $author_id;
     const TABLE = 'news';
+
+    /**
+     * @return \App\Models\Author
+     */
+    public function __get($name)
+    {
+        if (($name == 'author') && (isset($this->author_id))) {
+            return \App\Models\Author::findById($this->author_id);
+        }
+    }
+
 
     public static function findLast(int $value = null): array
     {

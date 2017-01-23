@@ -15,7 +15,7 @@ class Db
 
     public function __construct()
     {
-        $config = new Config();
+        $config = Config::singleton();
         $dsn = 'mysql:host=' . $config->data['db']['host'] . ';' .
             'dbname=' . $config->data['db']['dbname'] . ';' .
             'charset=' . $config->data['db']['charset'];

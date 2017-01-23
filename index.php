@@ -6,8 +6,15 @@
  * Time: 15:22
  */
 
+/**
+ * Подключение автозагрузки
+ */
 require __DIR__ . '/autoload.php';
 
-$data = \App\Models\Article::findLast(3);
+$view = new \App\View();
+$view->news = \App\Models\Article::findLast(3);
+$view->author = \App\Models\Author::findById(1);
 
-include __DIR__ . '/App/Templates/index.php';
+//var_dump($view);
+$content = $view->render(__DIR__ . '/App/Templates/index.php');
+echo $content;
