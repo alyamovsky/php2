@@ -8,16 +8,19 @@
 
 namespace App;
 
+
 /**
  * Трейт для обработки незаданных свойств класса магическими методами
  * @package App
  */
-trait RandomProp
+trait TMagic
 {
     /**
      * Массив для данных, передаваемых в шаблон
      * @var array
      */
+    protected $data = [];
+
     public function __set($name, $value)
     {
         $this->data[$name] = $value;

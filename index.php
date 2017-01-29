@@ -6,15 +6,18 @@
  * Time: 15:22
  */
 
-/**
- * Подключение автозагрузки
- */
 require __DIR__ . '/autoload.php';
 
-$view = new \App\View();
-$view->news = \App\Models\Article::findLast(3);
-$view->author = \App\Models\Author::findById(1);
+$parts = explode('/', $_SERVER['REQUEST_URI']);
 
-//var_dump($view);
-$content = $view->render(__DIR__ . '/App/Templates/index.php');
-echo $content;
+if ('index.php' == $parts[1]) {
+    $parts[1] = 'News';
+}
+
+$controllerName = ucfirst($parts[1]) ?: 'News';
+$controllerClassName = '\\App\\Controllers\\' . $controllerName;
+$actionName = ucfirst($parts[2]) ?: 'All';
+$id = $parts[3] ?: null;
+
+$controller = new $controllerClassName;
+$controller->action($actionName, $id);

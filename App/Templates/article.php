@@ -5,8 +5,8 @@
     <title><?= $data->title; ?></title>
 </head>
 <body>
-<h1><a href="/index.php">Главная</a> / <?= $data->title; ?></h1>
-<article><?= $data->text; ?>
-<p><?= $data->author->getName(); ?></p></article>
+<h1><a href="/">Главная</a> / <?= $article->title; ?></h1>
+<article><?= $article->text; ?>
+    <p><?= $article->author->getName(); ?></p></article>
 </body>
 </html>

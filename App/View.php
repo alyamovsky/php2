@@ -12,11 +12,7 @@ namespace App;
 class View
     implements \Countable
 {
-    use RandomProp;
-
-    protected $data = [];
-
-
+    use TMagic;
 
     /**
      * Count elements of an object

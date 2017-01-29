@@ -7,6 +7,9 @@
  */
 
 include __DIR__ . '/../autoload.php';
-$data = \App\Models\Article::findAll();
 
-include __DIR__ . '/../App/Templates/admin.php';
+$controllerClassName = '\\App\\Controllers\\Admin';
+$actionName = $_GET['action'] ?: 'All';
+
+$controller = new $controllerClassName;
+$controller->action($actionName);

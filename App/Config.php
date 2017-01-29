@@ -8,7 +8,12 @@
 
 namespace App;
 
-
+/**
+ * Class Config
+ * Singleton
+ *
+ * @package App
+ */
 class Config
 {
     public $data;
