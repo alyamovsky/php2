@@ -15,20 +15,18 @@ use App\Models\Article;
 class Admin
     extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->view->news = \App\Models\Article::findAll();
-        $this->view->authors = \App\Models\Author::findAll();
-    }
 
     public function actionAll()
     {
+        $this->view->news = \App\Models\Article::findAll();
+        $this->view->authors = \App\Models\Author::findAll();
         echo $this->view->render(__DIR__ . '/../Templates/admin.php');
     }
 
     public function actionEdit()
     {
+        $this->view->news = \App\Models\Article::findAll();
+        $this->view->authors = \App\Models\Author::findAll();
         if (isset($_GET['id'])) {
             $this->view->article = \App\Models\Article::findById($_GET['id']);
         }
@@ -36,18 +34,13 @@ class Admin
         echo $this->view->render(__DIR__ . '/../Templates/admin_edit.php');
     }
 
-    public function saveParams(Article $obj)
-    {
-        foreach ($_POST as $key => $value) {
-            $obj->$key = $value;
-        }
-        $obj->save();
-    }
-
     public function actionAdd()
     {
         $article = new \App\Models\Article;
-        $this->saveParams($article);
+        $article->title = $_POST['title'];
+        $article->text = $_POST['text'];
+        $article->author_id = $_POST['author_id'];
+        $article->save();
         header('Location: /admin');
     }
 
@@ -57,7 +50,10 @@ class Admin
             \App\Models\Article::delete($_POST['id']);
         } else {
             $article = \App\Models\Article::findById($_POST['id']);
-            $this->saveParams($article);
+            $article->title = $_POST['title'];
+            $article->text = $_POST['text'];
+            $article->author_id = $_POST['author_id'];
+            $article->save();
         }
         header('Location: /admin');
     }

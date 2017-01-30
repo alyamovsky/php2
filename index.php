@@ -19,5 +19,9 @@ $controllerClassName = '\\App\\Controllers\\' . $controllerName;
 $actionName = ucfirst($parts[2]) ?: 'All';
 $id = $parts[3] ?: null;
 
-$controller = new $controllerClassName;
-$controller->action($actionName, $id);
+try {
+    $controller = new $controllerClassName;
+    $controller->action($actionName, $id);
+} catch (\Exception $e) {
+    echo 'Возникла ошибка: ' . $e->getMessage();
+}

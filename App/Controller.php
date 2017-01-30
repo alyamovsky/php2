@@ -28,12 +28,12 @@ abstract class Controller
         return true;
     }
 
-    public function action(string $name, int $id = null)
+    public function action(string $name)
     {
         $this->beforeAction();
         $actionName = 'action' . $name;
         if ($this->access()) {
-            $this->$actionName($id);
+            $this->$actionName();
         } else {
             die('Restricted');
         }

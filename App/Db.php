@@ -9,6 +9,8 @@
 namespace App;
 
 
+use App\Exceptions\DbException;
+
 class Db
 {
     protected $handler;
@@ -16,12 +18,17 @@ class Db
     public function __construct()
     {
         $config = Config::singleton();
-        $dsn = 'mysql:host=' . $config->data['db']['host'] . ';' .
+        $dsn =
+            'mysql:host=' . $config->data['db']['host'] . ';' .
             'dbname=' . $config->data['db']['dbname'] . ';' .
             'charset=' . $config->data['db']['charset'];
         $dbLogin = $config->data['db']['user'];
         $dbPass = $config->data['db']['password'];
-        $this->handler = new \PDO($dsn, $dbLogin, $dbPass);
+        try {
+            $this->handler = new \PDO($dsn, $dbLogin, $dbPass);
+        } catch (\PDOException $e) {
+            throw new DbException($e->getMessage());
+        }
     }
 
     public function query($sql, $data = [], $class = null)
@@ -29,7 +36,7 @@ class Db
         $sth = $this->handler->prepare($sql);
         $res = $sth->execute($data);
         if (false === $res) {
-            die('DB error in ' . $sql);
+            throw new \Exception('DB error in ' . $sql);
         }
         if (null === $class) {
             return $sth->fetchAll();
