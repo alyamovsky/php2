@@ -17,11 +17,10 @@ if ('index.php' == $parts[1]) {
 $controllerName = ucfirst($parts[1]) ?: 'News';
 $controllerClassName = '\\App\\Controllers\\' . $controllerName;
 $actionName = ucfirst($parts[2]) ?: 'All';
-$id = $parts[3] ?: null;
 
 try {
     $controller = new $controllerClassName;
-    $controller->action($actionName, $id);
-} catch (\Exception $e) {
+    $controller->action($actionName);
+} catch (\App\Exceptions\DbException $e) {
     echo 'Возникла ошибка: ' . $e->getMessage();
 }

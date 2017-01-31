@@ -23,9 +23,7 @@ class News
 
     public function actionOne()
     {
-        $parts = explode('/', $_SERVER['REQUEST_URI']);
-        $id = $parts[3];
-        $this->view->article = \App\Models\Article::findById($id);
+        $this->view->article = \App\Models\Article::findById($_GET['id']);
         echo $this->view->render(__DIR__ . '/../Templates/article.php');
     }
 
