@@ -23,7 +23,7 @@ class Db
             'dbname=' . $config->data['db']['dbname'] . ';' .
             'charset=' . $config->data['db']['charset'];
         $dbLogin = $config->data['db']['user'];
-        $dbPass = $config->data['db']['pass1word'];
+        $dbPass = $config->data['db']['password'];
         try {
             $this->handler = new \PDO($dsn, $dbLogin, $dbPass);
         } catch (\PDOException $e) {

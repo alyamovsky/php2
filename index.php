@@ -24,9 +24,9 @@ try {
 } catch (\App\Exceptions\HttpException $e) {
     $controller->showErrorPage($e->getMessage());
     $logger = new \App\Logger();
-    $logger->add($e->getMessage());
+    $logger->add($e);
 } catch (\App\Exceptions\DbException $e) {
     $controller->showErrorPage($e->getMessage());
     $logger = new \App\Logger();
-    $logger->add($e->getMessage());
+    $logger->add($e);
 }
