@@ -20,11 +20,6 @@ abstract class Controller
         $this->view = new \App\View();
     }
 
-    public function className()
-    {
-        return __CLASS__;
-    }
-
     protected function beforeAction()
     {
 

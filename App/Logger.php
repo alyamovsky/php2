@@ -15,7 +15,7 @@ class Logger
 
     public function __construct()
     {
-        $this->file = $fp = fopen(__DIR__ . '/logs/log.txt', 'a+');
+        $this->file = fopen(__DIR__ . '/logs/log.txt', 'a+');
     }
 
     public function add($line)
