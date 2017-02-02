@@ -1,0 +1,3 @@
+404 - страница с id 8 не найдена
+404 - страница с id 15 не найдена
+SQLSTATE[HY000] [1045] Access denied for user 'db_admin'@'localhost' (using password: NO)

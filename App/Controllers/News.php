@@ -10,6 +10,7 @@ namespace App\Controllers;
 
 
 use App\Controller;
+use App\Exceptions\HttpException;
 use App\Models\Article;
 
 class News
@@ -24,6 +25,10 @@ class News
     public function actionOne()
     {
         $this->view->article = \App\Models\Article::findById($_GET['id']);
+        if (empty($this->view->article)) {
+            throw new HttpException('404 - страница с id ' . $_GET['id'] . ' не найдена');
+        }
+
         echo $this->view->render(__DIR__ . '/../Templates/article.php');
     }
 

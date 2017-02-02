@@ -105,4 +105,36 @@ abstract class Model
             $this->insert();
         }
     }
+
+    public function fill(array $data)
+    {
+        $errors = new MultiException();
+
+        foreach ($data as $key => $value) {
+            $validator = 'validate' . ucfirst($key);
+
+            if (method_exists($this, $validator)) {
+                try {
+                    $this->$validator($value);
+                } catch (MultiException $e) {
+                    foreach ($e as $item) {
+
+                        $errors->add(new \Exception($item->getMessage()));
+                    }
+                    continue;
+                }
+            }
+// ????????????
+            if (empty($value)) {
+                $errors->add(new \Exception('Empty ' . $key));
+                continue;
+            }
+
+            $this->$key = $value;
+        }
+
+        if (!$errors->isEmpty()) {
+            throw $errors;
+        }
+    }
 }

@@ -21,6 +21,12 @@ $actionName = ucfirst($parts[2]) ?: 'All';
 try {
     $controller = new $controllerClassName;
     $controller->action($actionName);
+} catch (\App\Exceptions\HttpException $e) {
+    $controller->showErrorPage($e->getMessage());
+    $logger = new \App\Logger();
+    $logger->add($e->getMessage());
 } catch (\App\Exceptions\DbException $e) {
-    echo 'Возникла ошибка: ' . $e->getMessage();
+    $controller->showErrorPage($e->getMessage());
+    $logger = new \App\Logger();
+    $logger->add($e->getMessage());
 }

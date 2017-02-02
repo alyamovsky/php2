@@ -23,7 +23,7 @@ class Db
             'dbname=' . $config->data['db']['dbname'] . ';' .
             'charset=' . $config->data['db']['charset'];
         $dbLogin = $config->data['db']['user'];
-        $dbPass = $config->data['db']['password'];
+        $dbPass = $config->data['db']['pass1word'];
         try {
             $this->handler = new \PDO($dsn, $dbLogin, $dbPass);
         } catch (\PDOException $e) {
@@ -35,8 +35,9 @@ class Db
     {
         $sth = $this->handler->prepare($sql);
         $res = $sth->execute($data);
+
         if (false === $res) {
-            throw new \Exception('DB error in ' . $sql);
+            throw new DbException('DB error in ' . $sql);
         }
         if (null === $class) {
             return $sth->fetchAll();

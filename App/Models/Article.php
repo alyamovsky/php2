@@ -41,4 +41,38 @@ class Article
         return $db->query($sql, [], self::class);
     }
 
+    protected function validateTitle($value)
+    {
+        $errors = new \App\MultiException();
+        
+        if (strlen($value) <= 3) {
+            $errors->add(new \Exception('The title field is too short'));
+        }
+
+        if ($value == 42) {
+            $errors->add(new \Exception('The title field must not be equal to 42'));
+        }
+
+        if (!$errors->isEmpty()) {
+            throw $errors;
+        }
+
+        return true;
+    }
+
+    protected function validateText($value)
+    {
+        $errors = new \App\MultiException();
+
+        if (strlen($value) <= 3) {
+            $errors->add(new \Exception('The text field is too short'));
+        }
+
+        if (!$errors->isEmpty()) {
+            throw $errors;
+        }
+
+        return true;
+    }
+
 }

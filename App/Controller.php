@@ -9,6 +9,8 @@
 namespace App;
 
 
+use App\Exceptions\HttpException;
+
 abstract class Controller
 {
     protected $view;
@@ -16,6 +18,11 @@ abstract class Controller
     public function __construct()
     {
         $this->view = new \App\View();
+    }
+
+    public function className()
+    {
+        return __CLASS__;
     }
 
     protected function beforeAction()
@@ -37,5 +44,12 @@ abstract class Controller
         } else {
             die('Restricted');
         }
+    }
+
+    public function showErrorPage($message)
+    {
+        $this->view->message = $message;
+        $this->view->title = 'Ошибка';
+        echo $this->view->render(__DIR__ . '/Templates/error.php');
     }
 }
