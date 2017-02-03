@@ -25,9 +25,18 @@ class Article
      */
     public function __get($name)
     {
-        if (($name == 'author') && (isset($this->author_id))) {
+        if (('author' == $name) && (isset($this->author_id))) {
             return \App\Models\Author::findById($this->author_id);
         }
+    }
+
+    public function __isset($name)
+    {
+        if ('author' == $name) {
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -44,7 +53,7 @@ class Article
     protected function validateTitle($value)
     {
         $errors = new \App\MultiException();
-        
+
         if (strlen($value) <= 3) {
             $errors->add(new \Exception('The title field is too short'));
         }

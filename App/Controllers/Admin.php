@@ -16,6 +16,11 @@ class Admin
     extends Controller
 {
 
+    public function __construct()
+    {
+        $this->view = new \App\View();
+    }
+
     public function actionAll()
     {
         $this->view->news = \App\Models\Article::findAll();

@@ -6,9 +6,14 @@
  * Time: 15:19
  */
 
-function __autoload($className)
+require __DIR__ . '/vendor/autoload.php';
+    
+function myapp_autoload($className)
 {
     $filename = str_replace('\\', '/', $className);
     $path = __DIR__ . '/' . $filename . '.php';
     require $path;
 }
+
+spl_autoload_register('myapp_autoload');
+

@@ -45,6 +45,6 @@ abstract class Controller
     {
         $this->view->message = $message;
         $this->view->title = 'Ошибка';
-        echo $this->view->render(__DIR__ . '/Templates/error.php');
+        echo $this->view->render('error.twig');
     }
 }

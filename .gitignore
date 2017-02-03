@@ -1,0 +1,4 @@
+/.idea/*
+/class_tests/*
+/vendor/*
+/App/cache/*
