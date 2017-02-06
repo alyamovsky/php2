@@ -40,11 +40,5 @@ abstract class Controller
             die('Restricted');
         }
     }
-
-    public function showErrorPage($message)
-    {
-        $this->view->message = $message;
-        $this->view->title = 'Ошибка';
-        echo $this->view->render('error.twig');
-    }
+    
 }
