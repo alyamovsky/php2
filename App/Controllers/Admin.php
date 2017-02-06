@@ -15,7 +15,6 @@ use App\Models\Article;
 class Admin
     extends Controller
 {
-
     public function actionAll()
     {
         $this->view->news = \App\Models\Article::findAll();

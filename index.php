@@ -21,12 +21,14 @@ $actionName = ucfirst($parts[2]) ?: 'All';
 try {
     $controller = new $controllerClassName;
     $controller->action($actionName);
-} catch (\App\Exceptions\HttpException $e) {
-    $controller->showErrorPage($e->getMessage());
+} catch (\App\Exceptions\E404Exception $e) {
+    $errorController = new \App\Controllers\Error();
+    $errorController->showErrorPage($e->getMessage());
     $logger = new \App\Logger();
     $logger->add($e);
 } catch (\App\Exceptions\DbException $e) {
-    $controller->showErrorPage($e->getMessage());
+    $errorController = new \App\Controllers\Error();
+    $errorController->showErrorPage($e->getMessage());
     $logger = new \App\Logger();
     $logger->add($e);
 }

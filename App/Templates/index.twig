@@ -1,0 +1,8 @@
+{{ include('header.twig') }}
+<h1>{{ title ?? 'Новости' }}</h1>
+{% for article in news %}
+    <h3><a href="/news/one/?id={{ article.id }}">{{ article.title }}</a></h3>
+    <article>{{ article.text|slice(0, 400) }}...
+        <p>{{ article.author.getName() }}</p></article>
+{% endfor %}
+{{ include('footer.twig') }}

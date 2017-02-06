@@ -9,7 +9,7 @@
 namespace App\Exceptions;
 
 
-class HttpException
+class E404Exception
     extends \Exception
 {
 

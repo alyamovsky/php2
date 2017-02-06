@@ -124,12 +124,11 @@ abstract class Model
                     continue;
                 }
             }
-// ????????????
-            if (empty($value)) {
+
+            if (!isset($value)) {
                 $errors->add(new \Exception('Empty ' . $key));
                 continue;
             }
-
             $this->$key = $value;
         }
 

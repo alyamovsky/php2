@@ -10,26 +10,30 @@ namespace App\Controllers;
 
 
 use App\Controller;
-use App\Exceptions\HttpException;
+use App\Exceptions\E404Exception;
 use App\Models\Article;
 
 class News
     extends Controller
 {
+
+    public function __construct()
+    {
+        $this->view = new \App\TwigView();
+    }
+
     public function actionAll()
     {
         $this->view->news = Article::findLast(3);
-        echo $this->view->render(__DIR__ . '/../Templates/index.php');
+        echo $this->view->render('index.twig');
     }
 
     public function actionOne()
     {
         $this->view->article = \App\Models\Article::findById($_GET['id']);
         if (empty($this->view->article)) {
-            throw new HttpException('404 - страница с id ' . $_GET['id'] . ' не найдена');
+            throw new E404Exception('404 - страница с id ' . $_GET['id'] . ' не найдена');
         }
-
-        echo $this->view->render(__DIR__ . '/../Templates/article.php');
+        echo $this->view->render('article.twig');
     }
-
 }

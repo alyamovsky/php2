@@ -9,7 +9,7 @@
 namespace App;
 
 
-use App\Exceptions\HttpException;
+use App\Exceptions\E404Exception;
 
 abstract class Controller
 {
@@ -39,12 +39,5 @@ abstract class Controller
         } else {
             die('Restricted');
         }
-    }
-
-    public function showErrorPage($message)
-    {
-        $this->view->message = $message;
-        $this->view->title = 'Ошибка';
-        echo $this->view->render(__DIR__ . '/Templates/error.php');
     }
 }
