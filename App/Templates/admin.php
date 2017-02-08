@@ -28,8 +28,6 @@
         </table>
     </form>
     <h1>Редактирование записей</h1>
-<?php foreach ($news as $value) : ?>
-    <p><a href="/admin?action=Edit&id=<?= $value->id; ?>"><?= $value->title; ?></a></p>
-<?php endforeach; ?>
+<?php include __DIR__ . '/admin_table.php'; ?>
 
 <?php include __DIR__ . '/admin_footer.php'; ?>

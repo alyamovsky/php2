@@ -46,6 +46,25 @@ class Db
         }
     }
 
+    public function queryEach($sql, $data = [], $class = null)
+    {
+        $sth = $this->handler->prepare($sql);
+        $res = $sth->execute($data);
+
+        if (false === $res) {
+            throw new DbException('DB error in ' . $sql);
+        }
+        if (null !== $class) {
+            $sth->setFetchMode(\PDO::FETCH_CLASS, $class);
+        }
+        $sth->fetch();
+
+        while ($item = $sth->fetch()) {
+            yield $item;
+        }
+
+    }
+
     public function execute($query, $params = []): bool
     {
         $sth = $this->handler->prepare($query);

@@ -6,7 +6,7 @@
  * Time: 15:36
  */
 
-include __DIR__ . '/../autoload.php';
+require __DIR__ . '/../autoload.php';
 
 $controllerClassName = '\\App\\Controllers\\Admin';
 $actionName = $_GET['action'] ?: 'All';

@@ -15,12 +15,22 @@ use App\Models\Article;
 class Admin
     extends Controller
 {
-    
     public function actionAll()
     {
-        $this->view->news = \App\Models\Article::findAll();
-        $this->view->authors = \App\Models\Author::findAll();
-        echo $this->view->render(__DIR__ . '/../Templates/admin.php');
+        $models[] = Article::findAll();
+        $functions = [
+            function (Article $m) {
+                return '<a href="index.php?action=Edit&id=' . $m->id . '">' . $m->title . '</a>';
+            },
+            function (Article $m) {
+                return $m->text;
+            },
+            function (Article $m) {
+                return $m->author->firstname . ' ' . $m->author->lastname;
+            }
+        ];
+        $table = new \App\AdminDataTable($models, $functions);
+        echo $table->render(__DIR__ . '/../Templates/admin.php');
     }
 
     public function actionEdit()

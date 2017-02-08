@@ -19,6 +19,13 @@ abstract class Model
         return $db->query($sql, [], static::class);
     }
 
+    public static function findEach(): \Generator
+    {
+        $db = new Db();
+        $sql = 'SELECT * FROM ' . static::TABLE . ' ORDER BY id DESC';
+        return $db->queryEach($sql, [], static::class);
+    }
+
     public static function countAll(): int
     {
         $db = new Db();
